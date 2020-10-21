@@ -38,6 +38,7 @@ class ImportEntities extends \Maintenance {
 		$this->addOption( 'file', 'File with list of entity ids to import', false, true );
 		$this->addOption( 'entity', 'ID of entity to import', false, true );
 		$this->addOption( 'query', 'Import items with property and entity id value', false, true );
+		$this->addOption( 'sparql', 'A SPARQL SELECT query that returns a list of ?ids', false, true );
 		$this->addOption( 'range', 'Range of ids to import', false, true );
 		$this->addOption( 'stdin', 'Read entity IDs to import from standard input', false, false );
 		$this->addOption( 'all-properties', 'Import all properties', false, false );
@@ -99,7 +100,7 @@ class ImportEntities extends \Maintenance {
 	}
 
 	private function getValidOptions() {
-		return [ 'entity', 'file', 'all-properties', 'query', 'range', 'stdin' ];
+		return [ 'entity', 'file', 'all-properties', 'query', 'sparql', 'range', 'stdin' ];
 	}
 
 	private function newEntityIdListBuilderFactory() {

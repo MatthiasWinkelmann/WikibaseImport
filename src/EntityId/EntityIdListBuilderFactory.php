@@ -65,6 +65,8 @@ class EntityIdListBuilderFactory {
 				return $this->newRangeEntityIdListBuilder();
 			case 'query':
 				return $this->newQueryEntityIdListBuilder();
+			case 'sparql':
+				return $this->newSparkqlEntityIdListBuilder();
 			case 'stdin':
 				return $this->newStdinEntityIdListBuilder();
 			default:
@@ -94,6 +96,13 @@ class EntityIdListBuilderFactory {
 		);
 	}
 
+
+	private function newSparkqlEntityIdListBuilder() {
+		return new SPARQLEntityIdListBuilder(
+			$this->idParser,
+			$this->queryRunner
+		);
+	}
 	private function newRangeEntityIdListBuilder() {
 		return new RangeEntityIdListBuilder( $this->idParser );
 	}
