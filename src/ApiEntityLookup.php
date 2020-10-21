@@ -38,11 +38,13 @@ class ApiEntityLookup implements EntityLookup {
 	public function __construct(
 		DispatchingDeserializer $deserializer,
 		LoggerInterface $logger,
-		$apiUrl
+      $apiUrl,
+      $languages = ['en', 'fr', 'de']
 	) {
 		$this->deserializer = $deserializer;
 		$this->logger = $logger;
 		$this->apiUrl = $apiUrl;
+      $this->languages = $languages;
 	}
 
 	/**
@@ -93,6 +95,7 @@ class ApiEntityLookup implements EntityLookup {
 		$params = array(
 			'action' => 'wbgetentities',
 			'ids' => implode( '|', $ids ),
+         'languages' => implode('|', $this->languages),
 			'format' => 'json'
 		);
 
