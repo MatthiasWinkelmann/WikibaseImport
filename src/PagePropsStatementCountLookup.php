@@ -6,7 +6,6 @@ use Exception;
 use LoadBalancer;
 use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\Lib\Store\EntityNamespaceLookup;
-use Wikibase\Repo\WikibaseRepo;
 
 class PagePropsStatementCountLookup implements StatementsCountLookup {
 
@@ -23,16 +22,16 @@ class PagePropsStatementCountLookup implements StatementsCountLookup {
 		$db = $this->loadBalancer->getConnection( DB_MASTER );
 
 		$res = $db->selectRow(
-			array( 'page_props', 'page' ),
-			array( 'pp_value' ),
-			array(
+			[ 'page_props', 'page' ],
+			[ 'pp_value' ],
+			[
 				'page_namespace' => $this->lookup->getEntityNamespace( $entityId->getEntityType() ),
 				'page_title' => $entityId->getSerialization(),
 				'pp_propname' => 'wb-claims'
-			),
+			],
 			__METHOD__,
-			array(),
-			array( 'page' => array( 'LEFT JOIN', 'page_id=pp_page' ) )
+			[],
+			[ 'page' => [ 'LEFT JOIN', 'page_id=pp_page' ] ]
 		);
 
 		$this->loadBalancer->closeConnection( $db );

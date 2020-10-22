@@ -9,7 +9,7 @@ use Wikibase\Import\EntityId\FileEntityIdListBuilder;
  *
  * @covers Wikibase\Import\EntityId\FileEntityIdListBuilder
  */
-class FileEntityIdListBuilderTest extends \PHPUnit_Framework_TestCase {
+class FileEntityIdListBuilderTest extends \PHPUnit\Framework\TestCase {
 
 	public function testGetEntityIds() {
 		$entityIdListBuilder = new FileEntityIdListBuilder();

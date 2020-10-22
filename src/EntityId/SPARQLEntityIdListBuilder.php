@@ -3,7 +3,6 @@
 namespace Wikibase\Import\EntityId;
 
 use Wikibase\DataModel\Entity\EntityIdParser;
-use Wikibase\DataModel\Entity\PropertyId;
 use Wikibase\Import\QueryRunner;
 
 /**
@@ -39,8 +38,7 @@ class SPARQLEntityIdListBuilder implements EntityIdListBuilder {
 	 *
 	 * @return string[]
 	 */
-	public function getEntityIds($input) {
-
-		return $this->queryRunner->getSPARQLMatches($input);
+	public function getEntityIds( $input ) {
+		return $this->queryRunner->getSPARQLMatches( $input );
 	}
 }

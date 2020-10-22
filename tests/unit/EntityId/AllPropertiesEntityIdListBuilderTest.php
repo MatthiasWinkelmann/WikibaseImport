@@ -7,7 +7,7 @@ use Wikibase\Import\EntityId\AllPropertiesEntityIdListBuilder;
 /**
  * @group WikibaseImport
  */
-class AllPropertiesEntityIdListBuilderTest extends \PHPUnit_Framework_TestCase {
+class AllPropertiesEntityIdListBuilderTest extends \PHPUnit\Framework\TestCase {
 
 	public function testGetEntityIds() {
 		$propertyIds = [ 'P1', 'P9', 'P9000' ];

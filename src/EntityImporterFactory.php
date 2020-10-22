@@ -5,11 +5,10 @@ namespace Wikibase\Import;
 use DataValues\Serializers\DataValueSerializer;
 use LoadBalancer;
 use Psr\Log\LoggerInterface;
-use Wikibase\DataModel\DeserializerFactory;
 use Wikibase\DataModel\SerializerFactory;
-use Wikibase\Lib\Store\EntityStore;
 use Wikibase\Import\Store\DBImportedEntityMappingStore;
 use Wikibase\Import\Store\ImportedEntityMappingStore;
+use Wikibase\Lib\Store\EntityStore;
 use Wikibase\Repo\WikibaseRepo;
 
 class EntityImporterFactory {

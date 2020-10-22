@@ -3,7 +3,6 @@
 namespace Wikibase\Import;
 
 use ApiMain;
-use Serializers\Serializer;
 use FauxRequest;
 use Psr\Log\LoggerInterface;
 use RequestContext;
@@ -12,12 +11,10 @@ use Wikibase\DataModel\Entity\BasicEntityIdParser;
 use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\DataModel\Serializers\StatementSerializer;
-use Wikibase\DataModel\Statement\Statement;
 use Wikibase\DataModel\Statement\StatementList;
 use Wikibase\Import\Store\ImportedEntityMappingStore;
 
 class StatementsImporter {
-
 	private $statementSerializer;
 
 	private $entityMappingStore;
@@ -49,45 +46,42 @@ class StatementsImporter {
 
 		$this->logger->info( 'Adding statements: ' . $entity->getId()->getSerialization() );
 
-		if ( !$statements->isEmpty() ) {
-			$entityId = $entity->getId();
+		if ( $statements->isEmpty() ) {
+			return;
+		}
 
-			if ( $entityId instanceof EntityId ) {
-				$localId = $this->entityMappingStore->getLocalId( $entityId );
+		$entityId = $entity->getId();
+		if ( !$entityId instanceof EntityId ) {
+			return;
+		}
 
-				if ( !$localId ) {
-					$this->logger->error( $entityId->getSerialization() .  ' not found' );
-				} else {
-					try {
-						$this->addStatementList( $localId, $statements );
-					} catch ( \Exception $ex ) {
-						$this->logger->error( $ex->getMessage() );
-					}
-				}
-			} else {
-				$this->logger->error( 'EntityId not set for entity' );
-			}
+		$localId = $this->entityMappingStore->getLocalId( $entityId );
+		try {
+			$this->addStatementList( $localId, $statements );
+		} catch ( \Exception $ex ) {
+			$this->logger->error( 'error in importStatements for entituId ' . $entityId . ' and localId ' . $localId . ': ' . $ex->getMessage() );
 		}
 	}
 
 	private function addStatementList( EntityId $entityId, StatementList $statements ) {
-		$data = array();
+		$data = [];
 
-		foreach( $statements as $statement ) {
+		foreach ( $statements as $statement ) {
 			try {
 				$data[] = $this->statementSerializer->serialize(
 					$this->statementCopier->copy( $statement )
 				);
 			} catch ( \Exception $ex ) {
-				$this->logger->error( $ex->getMessage() );
+				$this->logger->error( 'error in addStatementList' . $ex->getMessage() );
 			}
 		}
 
-		$params = array(
-			'action' => 'wbeditentity',
-			'data' => json_encode( array( 'claims' => $data ) ),
-			'id' => $entityId->getSerialization()
-		);
+		$params = [
+		 'action' => 'wbeditentit
+         y',
+		 'data' => json_encode( [ 'claims' => $data ] ),
+		 'id' => $entityId->getSerialization(),
+	  ];
 
 		$this->doApiRequest( $params );
 	}
@@ -108,5 +102,4 @@ class StatementsImporter {
 			return $result['entity']['id'];
 		}
 	}
-
 }

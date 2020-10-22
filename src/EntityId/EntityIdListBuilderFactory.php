@@ -96,13 +96,13 @@ class EntityIdListBuilderFactory {
 		);
 	}
 
-
 	private function newSparkqlEntityIdListBuilder() {
 		return new SPARQLEntityIdListBuilder(
 			$this->idParser,
 			$this->queryRunner
 		);
 	}
+
 	private function newRangeEntityIdListBuilder() {
 		return new RangeEntityIdListBuilder( $this->idParser );
 	}

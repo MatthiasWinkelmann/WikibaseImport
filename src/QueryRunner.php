@@ -15,45 +15,44 @@ class QueryRunner {
    public function __construct( QueryBuilder $queryBuilder, QueryExecuter $queryExecuter ) {
 		$this->queryBuilder = $queryBuilder;
 		$this->queryExecuter = $queryExecuter;
-	}
+   }
 
-	public function executeAndParse( String $query ) {
+	public function executeAndParse( string $query ) {
 		$results = $this->queryExecuter->execute( $query );
 
-		if ( !is_array( $results )) {
+		if ( !is_array( $results ) ) {
 			throw new QueryException( 'Query execution failed.' );
 		}
 
 		return $this->parseResults( $results['bindings'] );
 	}
 
-
-	public function getSPARQLMatches( String $sparql ) {
-		return  $this->executeAndParse( $sparql );
+	public function getSPARQLMatches( string $sparql ) {
+		return $this->executeAndParse( $sparql );
 	}
 
    public function getPropertyEntityIdValueMatches( PropertyId $propertyId, EntityId $valueId ) {
-      $propertyText = $propertyId->getSerialization( );
-      $valueText = $valueId->getSerialization( );
+	  $propertyText = $propertyId->getSerialization();
+	  $valueText = $valueId->getSerialization();
 
-      $this->queryBuilder->select( '?id' )
-         ->where( "?id", "wdt:$propertyText", "wd:$valueText" );
-      return $this->executeAndParse( $this->queryBuilder->getSPARQL( ) );
-	}
+	  $this->queryBuilder->select( '?id' )
+		 ->where( "?id", "wdt:$propertyText", "wd:$valueText" );
+	  return $this->executeAndParse( $this->queryBuilder->getSPARQL() );
+   }
 
    private function parseResults( array $results ) {
 		$pattern = "/^http:\/\/www.wikidata.org\/entity\/([PQ]\d+)$/";
-		$ids = array();
+		$ids = [];
 
-      foreach ( $results as $result ) {
-         preg_match( $pattern, $result['id']['value'], $matches );
+	  foreach ( $results as $result ) {
+		 preg_match( $pattern, $result['id']['value'], $matches );
 
-         if ( isset( $matches[1] ) ) {
+		 if ( isset( $matches[1] ) ) {
 				$ids[] = $matches[1];
-			}
-		}
+		 }
+	  }
 
 		return $ids;
-	}
+   }
 
 }

@@ -32,10 +32,10 @@ class DBImportedEntityMappingStore implements ImportedEntityMappingStore {
 
 		return $dbw->insert(
 			'wbs_entity_mapping',
-			array(
+			[
 				'wbs_local_id' => $localId->getSerialization(),
 				'wbs_original_id' => $originalId->getSerialization()
-			),
+			],
 			__METHOD__
 		);
 	}
@@ -51,9 +51,9 @@ class DBImportedEntityMappingStore implements ImportedEntityMappingStore {
 		$res = $dbw->selectRow(
 			'wbs_entity_mapping',
 			'wbs_local_id',
-			array(
+			[
 				'wbs_original_id' => $originalId->getSerialization()
-			),
+			],
 			__METHOD__
 		);
 
@@ -75,9 +75,9 @@ class DBImportedEntityMappingStore implements ImportedEntityMappingStore {
 		$res = $dbw->selectRow(
 			'wbs_entity_mapping',
 			'wbs_original_id',
-			array(
+			[
 				'wbs_local_id' => $localId->getSerialization()
-			),
+			],
 			__METHOD__
 		);
 

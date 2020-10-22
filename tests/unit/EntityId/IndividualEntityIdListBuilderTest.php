@@ -10,7 +10,7 @@ use Wikibase\Import\EntityId\IndividualEntityIdListBuilder;
  *
  * @covers Wikibase\Import\EntityId\IndividualEntityIdListBuilder
  */
-class IndividualEntityIdListBuilderTest extends \PHPUnit_Framework_TestCase {
+class IndividualEntityIdListBuilderTest extends \PHPUnit\Framework\TestCase {
 
 	public function testGetEntityIds() {
 		$entityIdListBuilder = new IndividualEntityIdListBuilder( new BasicEntityIdParser() );

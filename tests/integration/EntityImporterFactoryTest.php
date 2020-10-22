@@ -2,16 +2,15 @@
 
 namespace Wikibase\Import\Tests;
 
-use Monolog\Logger;
 use Monolog\Handler\NullHandler;
-use Wikibase\Import\EntityImporter;
+use Monolog\Logger;
 use Wikibase\Import\EntityImporterFactory;
 use Wikibase\Repo\WikibaseRepo;
 
 /**
  * @group WikibaseImport
  */
-class EntityImporterFactoryTest extends \PHPUnit_Framework_TestCase {
+class EntityImporterFactoryTest extends \PHPUnit\Framework\TestCase {
 
 	public function testNewEntityImporter() {
 		$entityImporterFactory = $this->newEntityImporterFactory();
