@@ -128,9 +128,7 @@ class EntityImporterFactory {
 	}
 
 	private function getEntityNamespaceLookup() {
-		$wikibaseRepo = WikibaseRepo::getDefaultInstance();
-
-		return $wikibaseRepo->getEntityNamespaceLookup();
+		return WikibaseRepo::getEntityNamespaceLookup();
 	}
 }
 
