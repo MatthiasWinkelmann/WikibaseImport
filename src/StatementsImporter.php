@@ -15,6 +15,7 @@ use Wikibase\DataModel\Statement\StatementList;
 use Wikibase\Import\Store\ImportedEntityMappingStore;
 
 class StatementsImporter {
+
 	private $statementSerializer;
 
 	private $entityMappingStore;
@@ -64,24 +65,23 @@ class StatementsImporter {
 	}
 
 	private function addStatementList( EntityId $entityId, StatementList $statements ) {
-		$data = [];
+		$data = array();
 
-		foreach ( $statements as $statement ) {
+		foreach( $statements as $statement ) {
 			try {
 				$data[] = $this->statementSerializer->serialize(
 					$this->statementCopier->copy( $statement )
 				);
 			} catch ( \Exception $ex ) {
-				$this->logger->error( 'error in addStatementList' . $ex->getMessage() );
+				$this->logger->error( $ex->getMessage() );
 			}
 		}
 
-		$params = [
-		 'action' => 'wbeditentit
-         y',
-		 'data' => json_encode( [ 'claims' => $data ] ),
-		 'id' => $entityId->getSerialization(),
-	  ];
+		$params = array(
+			'action' => 'wbeditentity',
+			'data' => json_encode( array( 'claims' => $data ) ),
+			'id' => $entityId->getSerialization()
+		);
 
 		$this->doApiRequest( $params );
 	}
@@ -102,4 +102,5 @@ class StatementsImporter {
 			return $result['entity']['id'];
 		}
 	}
+
 }

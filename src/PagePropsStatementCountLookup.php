@@ -22,16 +22,16 @@ class PagePropsStatementCountLookup implements StatementsCountLookup {
 		$db = $this->loadBalancer->getConnection( DB_MASTER );
 
 		$res = $db->selectRow(
-			[ 'page_props', 'page' ],
-			[ 'pp_value' ],
-			[
+			array( 'page_props', 'page' ),
+			array( 'pp_value' ),
+			array(
 				'page_namespace' => $this->lookup->getEntityNamespace( $entityId->getEntityType() ),
 				'page_title' => $entityId->getSerialization(),
 				'pp_propname' => 'wb-claims'
-			],
+			),
 			__METHOD__,
-			[],
-			[ 'page' => [ 'LEFT JOIN', 'page_id=pp_page' ] ]
+			array(),
+			array( 'page' => array( 'LEFT JOIN', 'page_id=pp_page' ) )
 		);
 
 		$this->loadBalancer->closeConnection( $db );

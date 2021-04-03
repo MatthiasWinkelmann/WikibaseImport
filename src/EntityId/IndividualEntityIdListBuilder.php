@@ -30,7 +30,7 @@ class IndividualEntityIdListBuilder implements EntityIdListBuilder {
 	public function getEntityIds( $input ) {
 		$entityId = $this->entityIdParser->parse( $input );
 
-		return [ $entityId->getSerialization() ];
+		return array( $entityId->getSerialization() );
 	}
 
 }

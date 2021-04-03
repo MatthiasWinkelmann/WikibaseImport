@@ -15,7 +15,7 @@ use Wikibase\Import\Store\DBImportedEntityMappingStore;
  */
 class DBImportedEntityMappingStoreTest extends \MediaWikiTestCase {
 
-	protected function setUp() : void {
+	protected function setUp() {
 		parent::setUp();
 
 		$this->tablesUsed[] = 'wbs_entity_mapping';

@@ -14,51 +14,51 @@ use Wikibase\Lib\Store\EntityStore;
 
 class EntityImporter {
 
-   private $statementsImporter;
+	private $statementsImporter;
 
-   private $badgeItemUpdater;
+	private $badgeItemUpdater;
 
-   private $apiEntityLookup;
+	private $apiEntityLookup;
 
-   private $entityStore;
+	private $entityStore;
 
-   private $entityMappingStore;
+	private $entityMappingStore;
 
-   private $logger;
+	private $logger;
 
-   private $statementsCountLookup;
+	private $statementsCountLookup;
 
-   private $idParser;
+	private $idParser;
 
-   private $importUser;
+	private $importUser;
 
-   private $batchSize;
+	private $batchSize;
 
-   public function __construct(
-	  StatementsImporter $statementsImporter,
-	  BadgeItemUpdater $badgeItemUpdater,
-	  ApiEntityLookup $apiEntityLookup,
-	  EntityStore $entityStore,
-	  ImportedEntityMappingStore $entityMappingStore,
-	  StatementsCountLookup $statementsCountLookup,
-	  LoggerInterface $logger
-   ) {
-	  $this->statementsImporter = $statementsImporter;
-	  $this->badgeItemUpdater = $badgeItemUpdater;
-	  $this->apiEntityLookup = $apiEntityLookup;
-	  $this->entityStore = $entityStore;
-	  $this->entityMappingStore = $entityMappingStore;
-	  $this->statementsCountLookup = $statementsCountLookup;
-	  $this->logger = $logger;
+	public function __construct(
+		StatementsImporter $statementsImporter,
+		BadgeItemUpdater $badgeItemUpdater,
+		ApiEntityLookup $apiEntityLookup,
+		EntityStore $entityStore,
+		ImportedEntityMappingStore $entityMappingStore,
+		StatementsCountLookup $statementsCountLookup,
+		LoggerInterface $logger
+	) {
+		$this->statementsImporter = $statementsImporter;
+		$this->badgeItemUpdater = $badgeItemUpdater;
+		$this->apiEntityLookup = $apiEntityLookup;
+		$this->entityStore = $entityStore;
+		$this->entityMappingStore = $entityMappingStore;
+		$this->statementsCountLookup = $statementsCountLookup;
+		$this->logger = $logger;
 
 	  $this->idParser = new BasicEntityIdParser();
 	  $this->importUser = User::newFromSession();
-	  $this->batchSize = 40;
+	  $this->batchSize = 30;
    }
 
-   public function importEntities( array $ids, $importStatements = true ) {
+	public function importEntities( array $ids, $importStatements = true ) {
 	  $ids = array_unique( $ids );
-	  $batches = array_chunk( $ids, $this->batchSize );
+		$batches = array_chunk( $ids, $this->batchSize );
 
 	  $nbatch = 0;
 	  foreach ( $batches as $batch ) {

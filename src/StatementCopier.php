@@ -5,11 +5,12 @@ namespace Wikibase\Import;
 use Psr\Log\LoggerInterface;
 use Wikibase\DataModel\Entity\BasicEntityIdParser;
 use Wikibase\DataModel\Entity\EntityIdValue;
-use Wikibase\DataModel\Reference;
-use Wikibase\DataModel\ReferenceList;
+use Wikibase\DataModel\Entity\PropertyId;
 use Wikibase\DataModel\Snak\PropertyNoValueSnak;
 use Wikibase\DataModel\Snak\PropertySomeValueSnak;
 use Wikibase\DataModel\Snak\PropertyValueSnak;
+use Wikibase\DataModel\Reference;
+use Wikibase\DataModel\ReferenceList;
 use Wikibase\DataModel\Snak\Snak;
 use Wikibase\DataModel\Snak\SnakList;
 use Wikibase\DataModel\Statement\Statement;
@@ -57,7 +58,7 @@ class StatementCopier {
 			$newPropertyId = $oldPropertyId;
 		}
 
-		switch ( $mainSnak->getType() ) {
+		switch( $mainSnak->getType() ) {
 			case 'somevalue':
 				return new PropertySomeValueSnak( $newPropertyId );
 			case 'novalue':
@@ -94,7 +95,7 @@ class StatementCopier {
 	private function copyQualifiers( SnakList $qualifiers ) {
 		$newQualifiers = new SnakList();
 
-		foreach ( $qualifiers as $qualifier ) {
+		foreach( $qualifiers as $qualifier ) {
 			$newQualifiers->addSnak( $this->copySnak( $qualifier ) );
 		}
 
@@ -104,10 +105,10 @@ class StatementCopier {
 	private function copyReferences( ReferenceList $references ) {
 		$newReferences = new ReferenceList();
 
-		foreach ( $references as $reference ) {
-			$newReferenceSnaks = [];
+		foreach( $references as $reference ) {
+			$newReferenceSnaks = array();
 
-			foreach ( $reference->getSnaks() as $referenceSnak ) {
+			foreach( $reference->getSnaks() as $referenceSnak ) {
 				$newReferenceSnaks[] = $this->copySnak( $referenceSnak );
 			}
 

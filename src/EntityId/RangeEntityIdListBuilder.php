@@ -43,7 +43,7 @@ class RangeEntityIdListBuilder implements EntityIdListBuilder {
 		$fromNumeric = $fromId->getNumericId();
 		$toNumeric = $toId->getNumericId();
 
-		$ids = array_map( function ( $numericId ) {
+		$ids = array_map( function( $numericId ) {
 			$id = new ItemId( 'Q' . $numericId );
 			return $id->getSerialization();
 		}, range( $fromNumeric, $toNumeric ) );

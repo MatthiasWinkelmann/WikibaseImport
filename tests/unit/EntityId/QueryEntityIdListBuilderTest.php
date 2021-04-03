@@ -10,7 +10,7 @@ use Wikibase\Import\EntityId\QueryEntityIdListBuilder;
  *
  * @covers Wikibase\Import\EntityId\QueryEntityIdListBuilder
  */
-class QueryEntityIdListBuilderTest extends \PHPUnit\Framework\TestCase {
+class QueryEntityIdListBuilderTest extends \PHPUnit_Framework_TestCase {
 
 	public function testGetEntityIds() {
 		$queryResult = [ 'Q2', 'Q20' ];

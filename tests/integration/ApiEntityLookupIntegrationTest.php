@@ -2,8 +2,8 @@
 
 namespace Wikibase\Import\Tests;
 
-use Monolog\Handler\NullHandler;
 use Monolog\Logger;
+use Monolog\Handler\NullHandler;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Entity\PropertyId;
 use Wikibase\Import\EntityImporterFactory;
@@ -12,7 +12,7 @@ use Wikibase\Repo\WikibaseRepo;
 /**
  * @group WikibaseImport
  */
-class ApiEntityLookupIntegrationTest extends \PHPUnit\Framework\TestCase {
+class ApiEntityLookupIntegrationTest extends \PHPUnit_Framework_TestCase {
 
 	public function testGetEntity() {
 		$apiEntityLookup = $this->getApiEntityLookup();

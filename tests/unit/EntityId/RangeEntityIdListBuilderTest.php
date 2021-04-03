@@ -10,7 +10,7 @@ use Wikibase\Import\EntityId\RangeEntityIdListBuilder;
  *
  * @covers Wikibase\Import\EntityId\RangeEntityIdListBuilder
  */
-class RangeEntityIdListBuilderTest extends \PHPUnit\Framework\TestCase {
+class RangeEntityIdListBuilderTest extends \PHPUnit_Framework_TestCase {
 
 	public function testGetEntityIds() {
 		$entityIdListBuilder = new RangeEntityIdListBuilder( new BasicEntityIdParser() );

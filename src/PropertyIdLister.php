@@ -12,7 +12,7 @@ class PropertyIdLister {
 
 	private $continuation = null;
 
-	private $properties = [];
+	private $properties = array();
 
 	/**
 	 * @param string $apiUrl
@@ -31,14 +31,14 @@ class PropertyIdLister {
 	}
 
 	private function doRequest( $apiUrl ) {
-		$params = [
+		$params = array(
 			'action' => 'query',
 			'list' => 'allpages',
 			'apnamespace' => 120,
 			'aplimit' => 300,
 			'format' => 'json',
 			'rawcontinue' => 1
-		];
+		);
 
 		if ( isset( $this->continuation ) && $this->continuation !== null ) {
 			$params['apfrom'] = $this->continuation;
@@ -46,7 +46,7 @@ class PropertyIdLister {
 
 		$json = Http::get(
 			wfAppendQuery( $apiUrl, $params ),
-			[],
+			array(),
 			__METHOD__
 		);
 
@@ -68,7 +68,7 @@ class PropertyIdLister {
 			throw new \RuntimeException( 'query param not found in result' );
 		}
 
-		foreach ( $res['query']['allpages'] as $page ) {
+		foreach( $res['query']['allpages'] as $page ) {
 			$parts = explode( ':', $page['title'] );
 			$this->properties[] = $parts[1];
 		}

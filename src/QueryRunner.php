@@ -12,10 +12,10 @@ class QueryRunner {
 	private $queryBuilder;
 	private $queryExecuter;
 
-   public function __construct( QueryBuilder $queryBuilder, QueryExecuter $queryExecuter ) {
+	public function __construct( QueryBuilder $queryBuilder, QueryExecuter $queryExecuter ) {
 		$this->queryBuilder = $queryBuilder;
 		$this->queryExecuter = $queryExecuter;
-   }
+	}
 
 	public function executeAndParse( string $query ) {
 		$results = $this->queryExecuter->execute( $query );
@@ -40,19 +40,19 @@ class QueryRunner {
 	  return $this->executeAndParse( $this->queryBuilder->getSPARQL() );
    }
 
-   private function parseResults( array $results ) {
+	private function parseResults( array $results ) {
 		$pattern = "/^http:\/\/www.wikidata.org\/entity\/([PQ]\d+)$/";
-		$ids = [];
+		$ids = array();
 
-	  foreach ( $results as $result ) {
-		 preg_match( $pattern, $result['id']['value'], $matches );
+		foreach ( $results as $result ) {
+			preg_match( $pattern, $result['id']['value'], $matches );
 
-		 if ( isset( $matches[1] ) ) {
+			if ( isset( $matches[1] ) ) {
 				$ids[] = $matches[1];
-		 }
-	  }
+			}
+		}
 
 		return $ids;
-   }
+	}
 
 }
